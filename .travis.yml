@@ -1,0 +1,24 @@
+sudo: required
+services:
+  - docker
+
+before_install: 
+  - curl https://sdk.cloud.google.com | bash > /dev/null;
+  - source $HOME/google-cloud-sdk/path.bash.inc
+  - gcloud components update kubectl
+  - gcloud auth activate-service-account --key-file service-account.json
+  - docker build -t "ankitsinghai/react-test" -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true ankitsinghai/react-test npm test
+
+after_script:
+  - docker build -t "ankitsinghai/multi-client:1.0" ./client
+  - docker build -t "ankitsinghai/multi-worker:1.0" ./worker
+  - docker build -t "ankitsinghai/multi-server:1.0" ./server
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push "ankitsinghai/multi-client:1.0"
+  - docker push "ankitsinghai/multi-server:1.0"
+  - docker push "ankitsinghai/multi-worker:1.0"
+  
+language: generic 
