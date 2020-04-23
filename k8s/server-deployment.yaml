@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: server
-        image: ankitsinghai/multi-server:1.0
+        image: ankitsinghai/multi-server
         resources:
           limits:
             memory: "64Mi"

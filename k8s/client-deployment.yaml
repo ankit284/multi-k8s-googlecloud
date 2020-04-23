@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: client
-        image: ankitsinghai/multi-client:1.0
+        image: ankitsinghai/multi-client
         resources:
           limits:
             memory: "64Mi"

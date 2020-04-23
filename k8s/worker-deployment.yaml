@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: worker
-        image: ankitsinghai/multi-worker:1.0
+        image: ankitsinghai/multi-worker
         resources:
           limits:
             memory: "64Mi"
